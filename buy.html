@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TMAN PROPERTIES - Buy</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>TMAN PROPERTIES</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="listings.html">Listings</a></li>
+                    <li><a href="agents.html">Agents</a></li>
+                    <li><a href="login.html">Login</a></li>
+                    <li><a href="register.html">Register</a></li>
+                    <li><a href="buy.html">Buy</a></li>
+                    <li><a href="sell.html">Sell</a></li>
+                    <li><a href="rent.html">Rent</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <div class="container">
+            <h2>Buy Properties</h2>
+            <p>Buy a property suited for you and your family.</p>
+            <div id="property-list" class="property-list">
+                <div class="property" data-city="Johannesburg" data-price="750000" data-property-type="house" data-bedrooms="3" data-bathrooms="2">
+                    <img src="https://th.bing.com/th/id/OIP.Cqx4hMt79SySkYAd86DZvAHaE8?rs=1&pid=ImgDetMain">
+                    <h3>Beautiful House in Johannesburg</h3>
+                    <p>Price: R750,000</p>
+                    <p>Bedrooms: 3</p>
+                    <p>Bathrooms: 2</p>
+                </div>
+                <div class="property" data-city="Johannesburg" data-price="750000" data-property-type="house" data-bedrooms="3" data-bathrooms="2">
+                    <img src="https://th.bing.com/th/id/R.9068b0e8333511e5ac8c985945fbb606?rik=%2bkbKT0KF7oY44w&pid=ImgRaw&r=0">
+                    <h3>Luxurious house in Johannesburg</h3>
+                    <p>Price: R10,500,000</p>
+                    <p>Bedrooms: 5</p>
+                    <p>Bathrooms: 6</p>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <div class="container">
+            <p>Contact us at <a href="mailto:tmanproperties@info.com">tmanproperties@info.com</a></p>
+        </div>
+    </footer>
+    <script>
+        function getQueryParams() {
+            const params = {};
+            const queryString = window.location.search.substring(1);
+            const queries = queryString.split("&");
+            queries.forEach(query => {
+                const [key, value] = query.split("=");
+                params[key] = decodeURIComponent(value);
+            });
+            return params;
+        }
+
+        function filterProperties() {
+            const params = getQueryParams();
+            const properties = document.querySelectorAll('.property');
+            properties.forEach(property => {
+                const city = property.getAttribute('data-city').toLowerCase();
+                const price = parseInt(property.getAttribute('data-price'));
+                const propertyType = property.getAttribute('data-property-type');
+                const bedrooms = parseInt(property.getAttribute('data-bedrooms'));
+                const bathrooms = parseInt(property.getAttribute('data-bathrooms'));
+
+                const matchesCity = city.includes(params.city.toLowerCase());
+                const matchesPrice = price >= parseInt(params.minPrice) && price <= parseInt(params.maxPrice);
+                const matchesType = propertyType === params.propertyType;
+                const matchesBedrooms = bedrooms === parseInt(params.bedrooms);
+                const matchesBathrooms = bathrooms === parseInt(params.bathrooms);
+
+                if (matchesCity && matchesPrice && matchesType && matchesBedrooms && matchesBathrooms) {
+                    property.style.display = 'block';
+                } else {
+                    property.style.display = 'none';
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', filterProperties);
+    </script>
+</body>
+</html>

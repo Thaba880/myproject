@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TMAN PROPERTIES - Home</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>TMAN PROPERTIES</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="listings.html">Listings</a></li>
+                    <li><a href="agents.html">Agents</a></li>
+                    <li><a href="login.html">Login</a></li>
+                    <li><a href="register.html">Register</a></li>
+                    <li><a id="buy-link" href="#">Buy</a></li>
+                    <li><a id="sell-link" href="#">Sell</a></li>
+                    <li><a id="rent-link" href="#">Rent</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <div class="container text-center">
+            <h2>Welcome to TMAN PROPERTIES</h2>
+            <p>Your one-stop platform for buying, selling, and renting properties.</p>
+            
+            <br>
+
+            <section id="search">
+                <h3>Search Properties</h3>
+                <form id="search-form">
+                    <input type="text" id="city" placeholder="City or Suburb" required>
+                    <input type="number" id="min-price" placeholder="Min Price" required>
+                    <input type="number" id="max-price" placeholder="Max Price" required>
+                    <select id="property-type" required>
+                        <option value="">Property Type</option>
+                        <option value="house">House</option>
+                        <option value="apartment">Apartment</option>
+                    </select>
+                    <select id="bedrooms" required>
+                        <option value="">Bedrooms</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5+</option>
+                    </select>
+                    <select id="bathrooms" required>
+                        <option value="">Bathrooms</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5+</option>
+                    </select>
+                    <select id="action" required>
+                        <option value="">Select Action</option>
+                        <option value="buy">Buy</option>
+                        <option value="sell">Sell</option>
+                        <option value="rent">Rent</option>
+                    </select>
+                    <button type="submit">Search</button>
+                </form>
+            </section>
+        </div>
+    </main>
+    <footer>
+        <div class="container">
+            <p>Contact us at <a href="mailto:tmanproperties@info.com">tmanproperties@info.com</a></p>
+        </div>
+    </footer>
+    <script>
+        document.getElementById('search-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const city = document.getElementById('city').value;
+            const minPrice = document.getElementById('min-price').value;
+            const maxPrice = document.getElementById('max-price').value;
+            const propertyType = document.getElementById('property-type').value;
+            const bedrooms = document.getElementById('bedrooms').value;
+            const bathrooms = document.getElementById('bathrooms').value;
+            const action = document.getElementById('action').value;
+
+            let page;
+            if (action === 'buy') {
+                page = 'buy.html';
+            } else if (action === 'sell') {
+                page = 'sell.html';
+            } else if (action === 'rent') {
+                page = 'rent.html';
+            } else {
+                page = 'listings.html';
+            }
+
+            const queryString = `${page}?city=${city}&minPrice=${minPrice}&maxPrice=${maxPrice}&propertyType=${propertyType}&bedrooms=${bedrooms}&bathrooms=${bathrooms}`;
+            window.location.href = queryString;
+        });
+    </script>
+</body>
+</html>
